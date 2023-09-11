@@ -9,7 +9,7 @@ import requests
 class OpenAIGPTView(APIView):
     def __init__(self, **kwargs: Any) -> None:
         super().__init__(**kwargs)
-        self.OPENAI_API_KEY = "****************"
+        self.OPENAI_API_KEY = ""
         self.fb_version = "v15.0"
         self.phone_id = "918610711834"
         self.sender_id = "116480298220877"
