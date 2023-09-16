@@ -1,20 +1,6 @@
 import speech_recognition as sr
-import pyttsx3
-import soundfile as sf
-import numpy as np
-from scipy.io import wavfile
 import pydub
-import ffmpeg
 
-# audio2 = sr.AudioFile("D:\django\whatsapp_gpt\whatsapp_gpt\sample.wav")
-
-# with audio2 as source:
-#     audio = r.record(source)
-
-# MyText = r.recognize_google(audio)
-# MyText = MyText.lower()
-
-# print("Did you say ", MyText)
 from rest_framework.response import Response
 import os
 from django.conf import settings
@@ -25,7 +11,6 @@ import subprocess
 
 class ProcessAudio:
     def convert_ogg_to_wav(self, path, dest):
-        pydub.AudioSegment.ffmpeg = ffmpeg.__path__
         song = pydub.AudioSegment.from_ogg(path)
         song.export(dest, format="wav")
 
