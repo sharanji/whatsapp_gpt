@@ -18,4 +18,5 @@ from .views import *
 
 urlpatterns = [
     path("api/chat", OpenAIGPTView.as_view()),
+    path("media/welcome", OpenAIGPTView.as_view()),
 ]

@@ -1,12 +1,13 @@
 import speech_recognition as sr
 import pydub
+from gtts import gTTS
 
-from rest_framework.response import Response
-import os
-from django.conf import settings
-from django.http import HttpResponse, Http404
+
+from django.http import FileResponse
 import requests
-import subprocess
+from heyoo import WhatsApp
+from rest_framework.response import Response
+import socket
 
 
 class ProcessAudio:
@@ -41,3 +42,15 @@ class ProcessAudio:
         extracted_text = r.recognize_google(recorded_audio)
 
         return extracted_text
+
+    def sendSpeechresponse(self, message, messenger: WhatsApp, message_id, user_number):
+        language = "en"
+        myobj = gTTS(text=message, lang=language, slow=False)
+        myobj.save(f"static/{message_id}.mp3")
+
+        r = messenger.send_audio(
+            audio=f"http://52.14.141.153:8000/static/{message_id}.mp3",
+            recipient_id=user_number,
+        )
+
+        return Response(f"http://52.14.141.153:8000/static/{message_id}.mp3")
