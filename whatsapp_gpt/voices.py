@@ -1,6 +1,10 @@
 import speech_recognition as sr
 import pyttsx3
-from pydub import AudioSegment
+import soundfile as sf
+import numpy as np
+from scipy.io import wavfile
+import pydub
+import ffmpeg
 
 # audio2 = sr.AudioFile("D:\django\whatsapp_gpt\whatsapp_gpt\sample.wav")
 
@@ -20,6 +24,11 @@ import subprocess
 
 
 class ProcessAudio:
+    def convert_ogg_to_wav(self, path, dest):
+        pydub.AudioSegment.ffmpeg = ffmpeg.__path__
+        song = pydub.AudioSegment.from_ogg(path)
+        song.export(dest, format="wav")
+
     def getTextfromAudio(self, messenger, jsonData, access_token):
         audio = messenger.get_audio(jsonData)
         audio_id, mime_type = audio["id"], audio["mime_type"]
@@ -27,28 +36,21 @@ class ProcessAudio:
         audio_filename = messenger.download_media(
             audio_url, mime_type, file_path="audios"
         )
-        # response = requests.request(
-        #     "GET",
-        #     audio_url,
-        #     headers={"Authorization": f"Bearer {access_token}"},
-        #     data={},
-        # )
-        # media_file = open(f"audios/{audio_id}.wav", "wb")
-        # media_file.write(response.content)
-        # media_file.close()
-
-        # Initialize the recognizer
-        r = sr.Recognizer()
-
-        subprocess.run(
-            f"ffmpeg -i audios/865375815144174.mp3 audios/wav/865375815144174.wav",
-            shell=True,
+        response = requests.request(
+            "GET",
+            audio_url,
+            headers={"Authorization": f"Bearer {access_token}"},
+            data={},
         )
-        # sound = AudioSegment.from_mp3("audios/865375815144174.mp3")
-        # sound.export("audios/wav/865375815144174.wav", format="wav")
+        media_file = open(f"audios/{audio_id}.ogg", "wb")
+        media_file.write(response.content)
+        media_file.close()
 
-        audio_file = sr.AudioFile(f"audios/865375815144174.mp3")
-        # audio_file = sr.AudioFile(f"audios/{audio_id}.wav")
+        self.convert_ogg_to_wav(f"audios/{audio_id}.ogg", f"audios/wav/{audio_id}.wav")
+
+        # # Initialize the recognizer
+        r = sr.Recognizer()
+        audio_file = sr.AudioFile(f"audios/wav/{audio_id}.wav")
         with audio_file as source:
             recorded_audio = r.record(source)
         extracted_text = r.recognize_google(recorded_audio)

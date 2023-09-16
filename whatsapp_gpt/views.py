@@ -15,7 +15,7 @@ class OpenAIGPTView(APIView):
         self.fb_version = "v15.0"
         self.phone_id = "918610711834"
         self.sender_id = "116480298220877"
-        self.access_token = "EAAMAp6fxdaEBO5l3oDBe9c8mdZBavxRDvlmWh2L2mAz2ZBiZAs0KEflDwlO8pb5MyZBA821fTZBbqXqVIs1B0HY7COj15FZBAkEZAkC8WxswWzJ5XNNdeEIwaMc3M01CanZCoAKmpxBalnwNNQtK1U8IADPOvV8VkwOWZBFud2KpQmSzjO2xZAkdlhLXQxNerD4l43KjFM8nYvSq9dc0L289gZDD"
+        self.access_token = "EAAMAp6fxdaEBO6WH9AVnbf9Q4KaASUjh6OCPXeBoEqZAidsWN7OqEOxcMSGaHwGrT1DddDnxLqNAa3Tg37GSMZA0RZCRXIKwQo8jCwMTtMXouSH9S7ots8XPOwG4lmNTWS94yT8FZA5p5iFOz9oChZC4CAU167zZCbJ9vyyZCiMuNPYMBUwGp7ZADm6G7QdAs2OnqrCLuPD1uaK1Jto80j4ZD"
 
     def get(self, request):
         answer = "hello boss"
