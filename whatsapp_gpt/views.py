@@ -44,13 +44,13 @@ class OpenAIGPTView(APIView):
                 message_id = messenger.get_message_id(request.data)
                 user_number = messenger.get_mobile(request.data)
 
-                # input = getUserinput
-                # openai.api_key = self.OPENAI_API_KEY
-                # completion = openai.ChatCompletion.create(
-                #     model="gpt-3.5-turbo", messages=[{"role": "user", "content": input}]
-                # )
-                # answer = completion["choices"][0]["message"]["content"]
-                answer = "Hello! How can I assist you today?"
+                input = getUserinput
+                openai.api_key = self.OPENAI_API_KEY
+                completion = openai.ChatCompletion.create(
+                    model="gpt-3.5-turbo", messages=[{"role": "user", "content": input}]
+                )
+                answer = completion["choices"][0]["message"]["content"]
+                # answer = "Hello! How can I assist you today?"
 
                 if message_type == "audio":
                     return ProcessAudio().sendSpeechresponse(
