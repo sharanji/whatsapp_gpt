@@ -44,16 +44,16 @@ class OpenAIGPTView(APIView):
                 message_id = messenger.get_message_id(request.data)
                 user_number = messenger.get_mobile(request.data)
 
-                # input = getUserinput
-                # openai.api_key = self.OPENAI_API_KEY
-                # completion = openai.ChatCompletion.create(
-                #     model="gpt-3.5-turbo", messages=[{"role": "user", "content": input}]
-                # )
-                # answer = completion["choices"][0]["message"]["content"]
+                input = getUserinput
+                openai.api_key = self.OPENAI_API_KEY
+                completion = openai.ChatCompletion.create(
+                    model="gpt-3.5-turbo", messages=[{"role": "user", "content": input}]
+                )
+                answer = completion["choices"][0]["message"]["content"]
 
-                # r = messenger.reply_to_message(
-                #     message_id=message_id, message=answer, recipient_id=user_number
-                # )
+                r = messenger.reply_to_message(
+                    message_id=message_id, message=answer, recipient_id=user_number
+                )
 
-                return Response(getUserinput)
+                return Response(answer)
         return Response("Bad Request", status=200)
